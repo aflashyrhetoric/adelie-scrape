@@ -19,7 +19,8 @@ make scrape
 ## DELETE ALL THE OUTPUT DATA
 make clean
 
-## WIP: Create simple node scripts to clean and process the data
+## Deploy the spiders to zyte (aka ScrapingHub)
+make deploy 
 ```
 
 ## Fine-tuning CSS
