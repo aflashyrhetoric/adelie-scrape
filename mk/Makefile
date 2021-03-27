@@ -1,7 +1,7 @@
-.PHONY: dev clean
+.PHONY: scrape clean
 
-dev:
-	scrapy crawl products -o data.json
+scrape:
+	scrapy crawl products -o raw_data.json
 
 clean:
 	rm data.json

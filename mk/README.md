@@ -13,8 +13,8 @@ pip install
 ## Running the crawlers
 
 ```bash
-## run the crawler
-make dev
+## run the crawler (requires Make)
+make scrape 
 
 ## DELETE ALL THE OUTPUT DATA
 make clean
