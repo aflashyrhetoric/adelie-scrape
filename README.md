@@ -13,6 +13,9 @@ pip install
 ## Running the crawlers
 
 ```bash
+## cd into `mk`
+cd mk
+
 ## run the crawler (requires Make)
 make scrape 
 
