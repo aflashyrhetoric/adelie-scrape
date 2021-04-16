@@ -20,6 +20,7 @@ make scrape
 make clean
 
 ## Deploy the spiders to zyte (aka ScrapingHub)
+# Make sure you're in adelie-scrape/mk with virtualenv activated first
 make deploy 
 ```
 
