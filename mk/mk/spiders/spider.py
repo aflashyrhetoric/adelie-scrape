@@ -33,7 +33,7 @@ class BrandsSpider(scrapy.Spider):
 
     def parse_model(self, response):
         css = ".v3_specs tr:nth-child({row}) td:nth-child(2)::text"
-        findBasedOnText = "//*[contains(text(), '{text}')]/following::td"
+        findBasedOnText = "//*[contains(text(), '{text}')]/following::td/text()"
         # css = ".v3_specs tr:nth-child(1) td:nth-child(2)::text"
         # Target the specifications section for the juicy bits
         for info in response.css(".v3_specs"):
@@ -54,7 +54,7 @@ class BrandsSpider(scrapy.Spider):
             # }
             yield {
                 "full_title": response.css(".header-detail .name::text").extract_first(),
-                "features": response.xpath("//h3[contains(text(), 'Features')]/following::ul/li/text()").getall(),
+                "features": response.xpath("//h3[contains(text(), 'Features')]/following::ul[@class='acc_features']/*/text()").getall(),
                 "brand": info.css(css.format(row=1)).extract_first(),
                 "product_name": info.css(css.format(row=2)).extract_first(),
                 "size": info.xpath(findBasedOnText.format(text="Size")).extract_first(),
