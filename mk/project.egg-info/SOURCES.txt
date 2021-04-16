@@ -1,4 +1,3 @@
-README.md
 setup.py
 mk/__init__.py
 mk/items.py
