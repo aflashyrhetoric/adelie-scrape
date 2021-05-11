@@ -1,4 +1,5 @@
 import scrapy
+from pprint import pprint
 import json
 from urllib.parse import urljoin
 
@@ -36,17 +37,19 @@ class BrandsSpider(scrapy.Spider):
         # Target the specifications section for the juicy bits
         for info in response.css(".v3_specs"):
             # fmt: off
-            frame_color = info.xpath(findBasedOnText.format(text="Frame Color")).extract_first(),
-            windows_compatible = info.xpath(findBasedOnText.format(text="Windows Compatible")).extract_first(),
-            mac_compatible = info.xpath(findBasedOnText.format(text="Mac Compatible")).extract_first(),
-            linux_compatible = info.xpath(findBasedOnText.format(text="Linux Compatible")).extract_first(),
-            size = info.xpath("//td[contains(text(), 'Size')]/following::td/text()").extract_first(),
-            interfaces = info.xpath(findBasedOnText.format(text="Interface(s)")).extract_first(),
+            frame_color = info.xpath(findBasedOnText.format(text="Frame Color")).extract_first()
+            windows_compatible = info.xpath(findBasedOnText.format(text="Windows Compatible")).extract_first()
+            mac_compatible = info.xpath(findBasedOnText.format(text="Mac Compatible")).extract_first()
+            linux_compatible = info.xpath(findBasedOnText.format(text="Linux Compatible")).extract_first()
+            size = info.xpath("//td[contains(text(), 'Size')]/following::td/text()").extract_first()
+            interfaces = info.xpath(findBasedOnText.format(text="Interface(s)")).extract_first()
             # fmt: on
 
             if frame_color is not None:
+                # pprint(frame_color)
                 frame_color = frame_color.lower()
             if windows_compatible is not None:
+                pprint(windows_compatible)
                 windows_compatible = windows_compatible.lower()
             if mac_compatible is not None:
                 mac_compatible = mac_compatible.lower()
@@ -60,7 +63,7 @@ class BrandsSpider(scrapy.Spider):
             # fmt: off
             yield {
                 "url": response.url,
-                "sku": response.css(".product-id::text").extract_first(),
+                "sku": response.css(".product-id .id::text").extract_first(),
                 "img_path": response.css('.product-info img::attr(src)').extract_first(),
                 "product_description": response.css('.ldesc_fulldesc::text').extract_first(),
                 "full_title": response.css(".header-detail .name::text").extract_first(),
