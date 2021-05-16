@@ -70,7 +70,7 @@ class BrandsSpider(scrapy.Spider):
                 "features": response.xpath("//h3[contains(text(), 'Features')]/following::ul[@class='acc_features']/*/text()").getall(),
                 "brand": info.css(css.format(row=1)).extract_first(),
                 "product_name": info.css(css.format(row=2)).extract_first(),
-                "size": info.xpath("//td[contains(text(), 'Size')]/following::td/text()").extract_first(),
+                "size": size,
                 "frame_color": frame_color,
                 "primary_led_color": info.xpath(findBasedOnText.format(text="Primary LED Color")).extract_first(),
                 "hotswappable": info.xpath(findBasedOnText.format(text="Hotswap Sockets")).extract_first(),
