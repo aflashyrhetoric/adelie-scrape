@@ -64,12 +64,13 @@ class BrandsSpider(scrapy.Spider):
             yield {
                 "url": response.url,
                 "sku": response.css(".product-id .id::text").extract_first(),
-                "img_path": response.css('.product-info img::attr(src)').extract_first(),
+                "brand": info.css(css.format(row=1)).extract_first(),
+                "product_name": info.css(css.format(row=2)).extract_first(),
+                'price': response.css('#product_price::text').extract_first(),
                 "product_description": response.css('.ldesc_fulldesc::text').extract_first(),
                 "full_title": response.css(".header-detail .name::text").extract_first(),
                 "features": response.xpath("//h3[contains(text(), 'Features')]/following::ul[@class='acc_features']/*/text()").getall(),
-                "brand": info.css(css.format(row=1)).extract_first(),
-                "product_name": info.css(css.format(row=2)).extract_first(),
+                "available_switch_variants": response.css('.opt-table select option::text').getall(),
                 "size": size,
                 "frame_color": frame_color,
                 "primary_led_color": info.xpath(findBasedOnText.format(text="Primary LED Color")).extract_first(),
@@ -80,6 +81,6 @@ class BrandsSpider(scrapy.Spider):
                 "linux_compatible": linux_compatible,
                 "dimensions": info.xpath(findBasedOnText.format(text="Dimensions")).extract_first(),
                 "weight": info.xpath(findBasedOnText.format(text="Weight")).extract_first(),
-                'price': response.css('#product_price::text').extract_first(),
+                "img_path": response.css('.product-info img::attr(src)').extract_first(),
             }
             # fmt: on
