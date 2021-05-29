@@ -43,6 +43,7 @@ class BrandsSpider(scrapy.Spider):
             linux_compatible = info.xpath(findBasedOnText.format(text="Linux Compatible")).extract_first()
             size = info.xpath("//td[contains(text(), 'Size')]/following::td/text()").extract_first()
             interfaces = info.xpath(findBasedOnText.format(text="Interface(s)")).extract_first()
+            available_switch_variants = response.css('.opt-table tr:first-child select option::text').getall(),
             # fmt: on
 
             if frame_color is not None:
@@ -57,11 +58,13 @@ class BrandsSpider(scrapy.Spider):
                 mac_compatible = mac_compatible == "yes"
             if linux_compatible is not None:
                 linux_compatible = linux_compatible.lower()
-                linux_compatible = linux_compatible.lower()
+                linux_compatible = linux_compatible == "yes"
             if size is not None:
                 size = size.lower()
             if interfaces is not None:
                 interfaces = interfaces.split(",")
+            if available_switch_variants is not None:
+                available_switch_variants = filter(lambda switch: "Select One" not in switch and "No Thanks" not in switch, available_switch_variants)
 
             # fmt: off
             yield {
@@ -73,7 +76,7 @@ class BrandsSpider(scrapy.Spider):
                 "product_description": response.css('.ldesc_fulldesc::text').extract_first(),
                 "full_title": response.css(".header-detail .name::text").extract_first(),
                 "features": response.xpath("//h3[contains(text(), 'Features')]/following::ul[@class='acc_features']/*/text()").getall(),
-                "available_switch_variants": response.css('.opt-table select option::text').getall(),
+                "available_switch_variants": available_switch_variants,
                 "size": size,
                 "frame_color": frame_color,
                 "primary_led_color": info.xpath(findBasedOnText.format(text="Primary LED Color")).extract_first(),
