@@ -49,11 +49,14 @@ class BrandsSpider(scrapy.Spider):
                 # pprint(frame_color)
                 frame_color = frame_color.lower()
             if windows_compatible is not None:
-                pprint(windows_compatible)
+                # pprint(windows_compatible)
                 windows_compatible = windows_compatible.lower()
+                windows_compatible = windows_compatible == "yes"
             if mac_compatible is not None:
                 mac_compatible = mac_compatible.lower()
+                mac_compatible = mac_compatible == "yes"
             if linux_compatible is not None:
+                linux_compatible = linux_compatible.lower()
                 linux_compatible = linux_compatible.lower()
             if size is not None:
                 size = size.lower()
