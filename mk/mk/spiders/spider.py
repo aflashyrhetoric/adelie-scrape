@@ -65,6 +65,7 @@ class BrandsSpider(scrapy.Spider):
                 interfaces = interfaces.split(",")
             if available_switch_variants is not None:
                 available_switch_variants = filter(lambda switch: ("Select One" not in switch), available_switch_variants)
+                available_switch_variants = list(available_switch_variants)
 
             # fmt: off
             yield {
