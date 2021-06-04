@@ -34,6 +34,8 @@ Using this view can help you hone in on the CSS you're looking for
 ```shell
 # Initiate the interactive shell
 scrapy shell https://mechanicalkeyboards.com/shop/index.php\?l\=product_list\&c\=110
+# for a specific product,
+scrapy shell https://mechanicalkeyboards.com/shop/index.php\?l\=product_detail\&p\=5402
 
 # Start fiddling around with the path until a result is returned
 response.xpath("//div[contains(@class, 'product-name')]/a/@href").extract()

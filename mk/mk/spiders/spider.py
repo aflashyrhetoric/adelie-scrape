@@ -43,7 +43,7 @@ class BrandsSpider(scrapy.Spider):
             linux_compatible = info.xpath(findBasedOnText.format(text="Linux Compatible")).extract_first()
             size = info.xpath("//td[contains(text(), 'Size')]/following::td/text()").extract_first()
             interfaces = info.xpath(findBasedOnText.format(text="Interface(s)")).extract_first()
-            available_switch_variants = response.css('.opt-table tr:first-child select option::text').getall(),
+            available_switch_variants = response.css('.opt-table tr:first-child select option::text').getall()
             # fmt: on
 
             if frame_color is not None:
